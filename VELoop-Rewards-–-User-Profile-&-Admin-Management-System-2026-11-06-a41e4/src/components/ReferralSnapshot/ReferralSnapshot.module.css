@@ -1,0 +1,13 @@
+.cardBox {
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.subBox {
+  background: #0F172A;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}

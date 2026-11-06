@@ -1,0 +1,18 @@
+.navbarCustom {
+  background: rgba(30, 41, 59, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #334155;
+  padding: 1rem 1.5rem;
+}
+
+.brandLogo {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #0f172a;
+}
