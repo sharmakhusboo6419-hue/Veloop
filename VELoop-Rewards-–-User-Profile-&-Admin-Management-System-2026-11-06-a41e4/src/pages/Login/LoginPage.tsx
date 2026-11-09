@@ -4,6 +4,15 @@ import { useAuth } from '../../context/AuthContext';
 import { Coins, Lock, Mail, User, ArrowRight, ShieldCheck } from 'lucide-react';
 import { apiFetch, readApiJson } from '../../utils/api';
 
+interface LoginUser {
+  id: string;
+  username: string;
+  email: string;
+  referralCode: string;
+  status: string;
+  createdAt?: string;
+}
+
 export const LoginPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('alex@veloop.io');
@@ -29,7 +38,7 @@ export const LoginPage: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      const data = await readApiJson<{ error?: string; token: string; user: User }>(res);
+      const data = await readApiJson<{ error?: string; token: string; user: LoginUser }>(res);
       if (!res.ok) {
         throw new Error(data.error || 'Authentication failed');
       }
