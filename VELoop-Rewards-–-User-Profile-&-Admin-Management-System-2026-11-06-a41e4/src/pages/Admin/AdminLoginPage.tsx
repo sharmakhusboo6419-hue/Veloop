@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Shield, Lock, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
+import { apiFetch, readApiJson } from '../../utils/api';
 
 export const AdminLoginPage: React.FC = () => {
   const [email, setEmail] = useState('admin@veloop.io');
@@ -17,12 +18,12 @@ export const AdminLoginPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/admin/auth/login', {
+      const res = await apiFetch('/api/admin/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      const data = await res.json();
+      const data = await readApiJson<{ error?: string; token: string; admin: any }>(res);
       if (!res.ok) {
         throw new Error(data.error || 'Admin authentication failed');
       }

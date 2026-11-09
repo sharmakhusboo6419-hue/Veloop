@@ -10,6 +10,7 @@ import { RecentActivity } from '../../components/RecentActivity/RecentActivity';
 import { QuickActions } from '../../components/QuickActions/QuickActions';
 import { GmailIntegration } from '../../components/GmailIntegration/GmailIntegration';
 import { X, CheckCircle2, AlertCircle } from 'lucide-react';
+import { apiFetch, readApiJson } from '../../utils/api';
 
 export const UserProfilePage: React.FC = () => {
   const { token } = useAuth();
@@ -41,25 +42,25 @@ export const UserProfilePage: React.FC = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [resProfile, resRewards, resLevel, resAch, resWith, resRef, resAct] = await Promise.all([
-        fetch('/api/profile/me', { headers }),
-        fetch('/api/profile/rewards', { headers }),
-        fetch('/api/profile/level-progress', { headers }),
-        fetch('/api/profile/achievements', { headers }),
-        fetch('/api/profile/withdrawal-summary', { headers }),
-        fetch('/api/profile/referrals', { headers }),
-        fetch('/api/profile/activity', { headers }),
+        apiFetch('/api/profile/me', { headers }),
+        apiFetch('/api/profile/rewards', { headers }),
+        apiFetch('/api/profile/level-progress', { headers }),
+        apiFetch('/api/profile/achievements', { headers }),
+        apiFetch('/api/profile/withdrawal-summary', { headers }),
+        apiFetch('/api/profile/referrals', { headers }),
+        apiFetch('/api/profile/activity', { headers }),
       ]);
 
       if (resProfile.ok) {
-        const d = await resProfile.json();
+        const d = await readApiJson<any>(resProfile);
         setProfileData(d.user);
         setWalletData(d.wallet);
       }
-      if (resLevel.ok) setLevelData(await resLevel.json());
-      if (resAch.ok) setAchievements((await resAch.json()).achievements);
-      if (resWith.ok) setWithdrawalSummary(await resWith.json());
-      if (resRef.ok) setReferralsData(await resRef.json());
-      if (resAct.ok) setActivities((await resAct.json()).activities);
+      if (resLevel.ok) setLevelData(await readApiJson<any>(resLevel));
+      if (resAch.ok) setAchievements((await readApiJson<any>(resAch)).achievements);
+      if (resWith.ok) setWithdrawalSummary(await readApiJson<any>(resWith));
+      if (resRef.ok) setReferralsData(await readApiJson<any>(resRef));
+      if (resAct.ok) setActivities((await readApiJson<any>(resAct)).activities);
     } catch (err) {
       console.error('Error fetching profile data', err);
     } finally {
@@ -87,7 +88,7 @@ export const UserProfilePage: React.FC = () => {
     e.preventDefault();
     setWithdrawError('');
     try {
-      const res = await fetch('/api/profile/withdraw', {
+      const res = await apiFetch('/api/profile/withdraw', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,7 +102,7 @@ export const UserProfilePage: React.FC = () => {
       });
 
       if (!res.ok) {
-        const d = await res.json();
+        const d = await readApiJson<{ error?: string }>(res);
         throw new Error(d.error || 'Withdrawal failed');
       }
 

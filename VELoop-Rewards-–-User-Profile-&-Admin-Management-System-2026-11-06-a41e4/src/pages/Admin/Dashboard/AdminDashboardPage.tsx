@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { Users, Coins, ArrowUpRight, Shield, Activity, Search, CheckCircle, XCircle, AlertTriangle, RefreshCw } from 'lucide-react';
 import { formatNumber } from '../../../utils/helpers';
+import { apiFetch, readApiJson } from '../../../utils/api';
 
 export const AdminDashboardPage: React.FC = () => {
   const { adminToken } = useAuth();
@@ -29,16 +30,16 @@ export const AdminDashboardPage: React.FC = () => {
     try {
       const headers = { Authorization: `Bearer ${adminToken}` };
       const [resStats, resUsers, resWith, resAudit] = await Promise.all([
-        fetch('/api/admin/stats', { headers }),
-        fetch('/api/admin/users', { headers }),
-        fetch('/api/admin/withdrawals', { headers }),
-        fetch('/api/admin/audit-logs', { headers })
+        apiFetch('/api/admin/stats', { headers }),
+        apiFetch('/api/admin/users', { headers }),
+        apiFetch('/api/admin/withdrawals', { headers }),
+        apiFetch('/api/admin/audit-logs', { headers })
       ]);
 
-      if (resStats.ok) setStats(await resStats.json());
-      if (resUsers.ok) setUsers((await resUsers.json()).users);
-      if (resWith.ok) setWithdrawals((await resWith.json()).withdrawals);
-      if (resAudit.ok) setAuditLogs((await resAudit.json()).logs);
+      if (resStats.ok) setStats(await readApiJson<any>(resStats));
+      if (resUsers.ok) setUsers((await readApiJson<any>(resUsers)).users);
+      if (resWith.ok) setWithdrawals((await readApiJson<any>(resWith)).withdrawals);
+      if (resAudit.ok) setAuditLogs((await readApiJson<any>(resAudit)).logs);
     } catch (err) {
       console.error('Error fetching admin data', err);
     } finally {
@@ -54,7 +55,7 @@ export const AdminDashboardPage: React.FC = () => {
 
   const handleStatusChange = async (userId: string, newStatus: string) => {
     try {
-      const res = await fetch(`/api/admin/users/${userId}/status`, {
+      const res = await apiFetch(`/api/admin/users/${userId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +74,7 @@ export const AdminDashboardPage: React.FC = () => {
 
   const handleWithdrawalAction = async (withdrawalId: string, status: string) => {
     try {
-      const res = await fetch(`/api/admin/withdrawals/${withdrawalId}/status`, {
+      const res = await apiFetch(`/api/admin/withdrawals/${withdrawalId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ export const AdminDashboardPage: React.FC = () => {
     if (!adjustModalUser) return;
 
     try {
-      const res = await fetch('/api/admin/rewards/adjust', {
+      const res = await apiFetch('/api/admin/rewards/adjust', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

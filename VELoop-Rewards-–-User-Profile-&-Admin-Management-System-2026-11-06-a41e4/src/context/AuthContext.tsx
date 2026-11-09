@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { apiFetch, readApiJson } from '../utils/api';
 
 interface User {
   id: string;
@@ -36,11 +37,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     async function verifySession() {
       if (token) {
         try {
-          const res = await fetch('/api/auth/me', {
+          const res = await apiFetch('/api/auth/me', {
             headers: { Authorization: `Bearer ${token}` }
           });
           if (res.ok) {
-            const data = await res.json();
+            const data = await readApiJson<{ user: User }>(res);
             setUser(data.user);
           } else {
             localStorage.removeItem('veloop_token');

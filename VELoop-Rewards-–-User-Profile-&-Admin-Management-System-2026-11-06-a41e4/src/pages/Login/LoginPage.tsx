@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Coins, Lock, Mail, User, ArrowRight, ShieldCheck } from 'lucide-react';
+import { apiFetch, readApiJson } from '../../utils/api';
 
 export const LoginPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -23,12 +24,12 @@ export const LoginPage: React.FC = () => {
     const payload = isLogin ? { email, password } : { username, email, password, referralCode };
 
     try {
-      const res = await fetch(endpoint, {
+      const res = await apiFetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
+      const data = await readApiJson<{ error?: string; token: string; user: User }>(res);
       if (!res.ok) {
         throw new Error(data.error || 'Authentication failed');
       }
