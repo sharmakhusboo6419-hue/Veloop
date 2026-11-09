@@ -1,26 +1,110 @@
 .assetCard {
-  background: #1E293B;
-  border: 1px solid #334155;
-  border-radius: 0.75rem;
-  padding: 1.25rem;
+  background: var(--card-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.assetCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-amber), var(--accent-blue));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .assetCard:hover {
-  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.3);
 }
 
-.iconBox {
-  width: 44px;
-  height: 44px;
-  background: #0F172A;
-  border: 1px solid #334155;
-  border-radius: 0.5rem;
+.assetCard:hover::before {
+  opacity: 0.6;
+}
+
+.assetCard .iconBox {
+  width: 52px;
+  height: 52px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.assetCard:hover .iconBox {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3);
+}
+
+.assetCard .icon {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.assetCard:hover .icon {
+  transform: scale(1.15);
+}
+
+.assetCard .badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.assetCard h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.assetCard p {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: auto;
+}
+
+.assetCard[data-earned="true"] {
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.assetCard[data-earned="true"] .icon {
+  color: var(--accent-emerald);
+}
+
+.assetCard[data-earned="true"] .badge {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+@media (max-width: 640px) {
+  .assetCard {
+    padding: 1rem;
+  }
+
+  .assetCard .iconBox {
+    width: 44px;
+    height: 44px;
+  }
+
+  .assetCard .icon {
+    width: 24px;
+    height: 24px;
+  }
 }

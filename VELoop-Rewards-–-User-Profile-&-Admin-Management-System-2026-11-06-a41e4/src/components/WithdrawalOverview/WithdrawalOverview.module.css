@@ -1,24 +1,90 @@
 .cardBox {
-  background: #1E293B;
-  border: 1px solid #334155;
-  border-radius: 1rem;
+  background: var(--card-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
+  backdrop-filter: blur(10px);
 }
 
 .subBox {
-  background: #0F172A;
-  border: 1px solid #334155;
-  border-radius: 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1rem;
 }
 
 .tableDark {
-  color: #fff;
+  color: var(--fg);
   background-color: transparent;
 }
 
-.tableDark th, .tableDark td {
+.tableDark th,
+.tableDark td {
   background-color: transparent !important;
-  color: #cbd5e1 !important;
-  border-color: #334155 !important;
+  color: var(--muted) !important;
+  border-color: var(--border) !important;
+}
+
+.tableDark thead th {
+  color: var(--muted-soft);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom-color: var(--border);
+}
+
+.tableDark tbody tr {
+  border-top: 1px solid var(--border);
+}
+
+.tableDark tbody tr:hover {
+  background: var(--card);
+}
+
+.tableDark td {
+  padding: 0.75rem 0;
+}
+
+.statusBadge-small {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-sm);
+}
+
+.statusBadge-small.approved {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.statusBadge-small.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-amber);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.statusBadge-small.rejected {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--accent-rose);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.noDataText {
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .cardBox {
+    padding: 1rem;
+  }
+
+  .subBox {
+    padding: 0.75rem;
+  }
 }

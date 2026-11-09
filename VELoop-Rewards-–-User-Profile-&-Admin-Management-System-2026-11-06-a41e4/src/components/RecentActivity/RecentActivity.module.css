@@ -1,13 +1,59 @@
 .cardBox {
-  background: #1E293B;
-  border: 1px solid #334155;
-  border-radius: 1rem;
+  background: var(--card-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
+  backdrop-filter: blur(10px);
 }
 
 .actItem {
-  background: #0F172A;
-  border: 1px solid #334155;
-  border-radius: 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 3px solid transparent;
+}
+
+.actItem:hover {
+  border-left-color: var(--accent-amber);
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateX(4px);
+}
+
+.actItem .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.actItem .description {
+  color: var(--fg);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.actItem .actionType {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+}
+
+.actItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .cardBox {
+    padding: 1rem;
+  }
+
+  .actItem {
+    padding: 0.75rem;
+  }
 }
