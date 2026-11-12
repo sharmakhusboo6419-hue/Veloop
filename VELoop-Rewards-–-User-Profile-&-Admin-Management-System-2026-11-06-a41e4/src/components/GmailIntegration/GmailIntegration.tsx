@@ -110,7 +110,7 @@ export const GmailIntegration: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
+    <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
           <Mail className="w-5 h-5 text-red-400" /> Gmail Notification & Mailbox Integration
@@ -152,7 +152,7 @@ export const GmailIntegration: React.FC = () => {
                   value={emailTo}
                   onChange={e => setEmailTo(e.target.value)}
                   placeholder="recipient@example.com"
-                  className="w-full bg-[#1E293B] border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500"
+                  className="w-full bg-[var(--card)] border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500"
                 />
               </div>
 
@@ -163,7 +163,7 @@ export const GmailIntegration: React.FC = () => {
                   required
                   value={emailSubject}
                   onChange={e => setEmailSubject(e.target.value)}
-                  className="w-full bg-[#1E293B] border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-red-500"
+                  className="w-full bg-[var(--card)] border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-red-500"
                 />
               </div>
 
@@ -174,7 +174,7 @@ export const GmailIntegration: React.FC = () => {
                   rows={3}
                   value={emailBody}
                   onChange={e => setEmailBody(e.target.value)}
-                  className="w-full bg-[#1E293B] border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-red-500"
+                  className="w-full bg-[var(--card)] border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-red-500"
                 />
               </div>
 
@@ -212,7 +212,7 @@ export const GmailIntegration: React.FC = () => {
                   const subject = headers.find((h: any) => h.name === 'Subject')?.value || 'No Subject';
                   const from = headers.find((h: any) => h.name === 'From')?.value || 'Unknown Sender';
                   return (
-                    <div key={m.id} className="bg-[#1E293B] border border-slate-800 rounded-xl p-3 text-xs">
+                    <div key={m.id} className="bg-[var(--card)] border border-slate-800 rounded-xl p-3 text-xs">
                       <span className="font-semibold text-white block truncate">{subject}</span>
                       <span className="text-slate-400 text-[11px] block truncate">From: {from}</span>
                       <span className="text-slate-500 text-[10px] font-mono mt-1 block">Snippet: {m.snippet}</span>

@@ -1,18 +1,20 @@
 .navbarCustom {
-  background: rgba(30, 41, 59, 0.9) !important;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #334155;
-  padding: 1rem 1.5rem;
+  background: rgba(11, 13, 18, 0.86) !important;
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.9rem 1.5rem;
 }
 
 .brandLogo {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  border-radius: 0.75rem;
+  background: #f5b942;
+  border-radius: 0.65rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  color: #0f172a;
+  color: #10130d;
+  letter-spacing: -0.08em;
+  box-shadow: 0 0 24px rgba(245, 185, 66, 0.18);
 }

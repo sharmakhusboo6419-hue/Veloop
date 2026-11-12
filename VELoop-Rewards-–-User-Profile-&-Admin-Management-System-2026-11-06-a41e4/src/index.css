@@ -1,48 +1,46 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
   :root {
     color-scheme: dark;
-    --font-sans: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-    --font-mono: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+    --font-sans: "Plus Jakarta Sans", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 
-    --bg: #080d18;
-    --bg-secondary: #0e1420;
-    --card: #161d2c;
-    --card-soft: rgba(22, 29, 44, 0.8);
-    --border: #2a3a52;
+    --bg: #07111f;
+    --bg-secondary: #0b1b2b;
+    --card: #10263a;
+    --card-soft: rgba(16, 38, 58, 0.94);
+    --border: #29445b;
 
-    --fg: #e8edf5;
-    --muted: #8b9cb8;
-    --muted-soft: #6b7d99;
+    --fg: #f5f7fb;
+    --muted: #9fb2c4;
+    --muted-soft: #6f879b;
 
-    --accent-amber: #f59e0b;
-    --accent-amber-soft: rgba(245, 158, 11, 0.15);
-    --accent-amber-glow: rgba(245, 158, 11, 0.4);
+    --accent-amber: #f5b942;
+    --accent-amber-soft: rgba(245, 185, 66, 0.15);
+    --accent-amber-glow: rgba(245, 185, 66, 0.38);
 
-    --accent-blue: #3b82f6;
-    --accent-blue-soft: rgba(59, 130, 246, 0.1);
-    --accent-blue-glow: rgba(59, 130, 246, 0.4);
+    --accent-blue: #7ea6ff;
+    --accent-blue-soft: rgba(126, 166, 255, 0.12);
+    --accent-blue-glow: rgba(126, 166, 255, 0.3);
 
     --accent-emerald: #10b981;
     --accent-emerald-soft: rgba(16, 185, 129, 0.1);
     --accent-emerald-glow: rgba(16, 185, 129, 0.3);
 
-    --accent-rose: #ec4899;
-    --accent-rose-soft: rgba(236, 72, 153, 0.1);
-    --accent-rose-glow: rgba(236, 72, 153, 0.3);
+    --accent-rose: #ff8a80;
+    --accent-rose-soft: rgba(255, 138, 128, 0.1);
+    --accent-rose-glow: rgba(255, 138, 128, 0.3);
 
     --success: #10b981;
-    --warning: #f59e0b;
-    --info: #3b82f6;
-    --danger: #ef4444;
+    --warning: #f5b942;
+    --info: #7ea6ff;
+    --danger: #ff6f61;
 
-    --radius-sm: 0.5rem;
+    --radius-sm: 0.4rem;
     --radius-md: 0.75rem;
-    --radius-lg: 1rem;
-    --radius-xl: 1.25rem;
+    --radius-lg: 1.15rem;
+    --radius-xl: 1.5rem;
 
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -60,6 +58,7 @@
     background: var(--bg);
     color: var(--fg);
     min-height: 100vh;
+    letter-spacing: -0.01em;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -85,16 +84,25 @@
 
 @layer utilities {
   .bg-gradient-dark {
-    background: radial-gradient(circle at 12% 0%, rgba(35, 91, 158, 0.18), transparent 34rem),
-      radial-gradient(circle at 86% 22%, rgba(245, 158, 11, 0.07), transparent 28rem),
-      #080d18;
+    background: radial-gradient(circle at 0% 0%, rgba(215, 243, 107, 0.06), transparent 30rem),
+      radial-gradient(circle at 100% 20%, rgba(138, 167, 255, 0.08), transparent 32rem),
+      var(--bg);
   }
 
   .bg-pattern-subtle {
     background-image: 
-      linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
-    background-size: 32px 32px;
+      linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .app-shell,
+  .dashboard-grid {
+    background: var(--bg);
+  }
+
+  .dashboard-grid {
+    background-image: radial-gradient(circle at 85% 4%, rgba(138, 167, 255, 0.08), transparent 28rem);
   }
 
   .card-elevated {
@@ -102,6 +110,10 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     backdrop-filter: blur(10px);
+  }
+
+  button, a {
+    -webkit-tap-highlight-color: transparent;
   }
 
   .card-elevated:hover {
@@ -155,5 +167,50 @@
 
   .shadow-hero {
     box-shadow: var(--shadow-hero);
+  }
+
+  :where(button, a, input, select, textarea):focus-visible {
+    outline: 3px solid var(--accent-amber);
+    outline-offset: 3px;
+  }
+
+  input, select, textarea {
+    color: var(--fg);
+  }
+
+  .admin-console table {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: collapse;
+  }
+
+  .admin-console th,
+  .admin-console td {
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 0.65rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .admin-console th {
+    color: var(--muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .admin-console .overflow-x-auto {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--card-soft);
+  }
+
+  @media (max-width: 640px) {
+    .admin-console {
+      padding: 1rem;
+    }
+    .admin-console h1 {
+      font-size: 1.35rem;
+    }
   }
 }

@@ -10,38 +10,38 @@ interface LevelProgressProps {
 export const LevelProgress: React.FC<LevelProgressProps> = ({ levelData }) => {
   return (
     <div className={styles.cardBox}>
-      <div className="d-flex align-items-center justify-between mb-4">
-        <h2 className="h5 fw-bold text-white mb-0 d-flex align-items-center gap-2">
-          <Award className="text-warning" size={20} /> Level Progression
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold text-white mb-0 flex items-center gap-2">
+          <Award className="text-amber-300" size={20} /> Level Progression
         </h2>
-        <span className="badge font-monospace bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-3 py-1">
+        <span className="badge font-mono bg-warning bg-opacity-10 text-amber-300 border border-warning border-opacity-25 px-3 py-1">
           Level 0{levelData?.currentLevel || 1}
         </span>
       </div>
 
-      <div className="row g-3 mb-4">
-        <div className="col-md-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+        <div className="grid">
           <div className={styles.subBox}>
-            <span className="text-muted small d-block mb-1">Current Title</span>
-            <span className="fw-bold text-white">{levelData?.levelName || 'Novice'}</span>
+            <span className="text-slate-300 text-xs d-block mb-1">Current Title</span>
+            <span className="font-bold text-white">{levelData?.levelName || 'Novice'}</span>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="grid">
           <div className={styles.subBox}>
-            <span className="text-muted small d-block mb-1">Accumulated XP</span>
-            <span className="fw-bold text-warning font-monospace">{formatNumber(levelData?.currentXp)} XP</span>
+            <span className="text-slate-300 text-xs d-block mb-1">Accumulated XP</span>
+            <span className="font-bold text-amber-300 font-mono">{formatNumber(levelData?.currentXp)} XP</span>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="grid">
           <div className={styles.subBox}>
-            <span className="text-muted small d-block mb-1">Next Milestone</span>
-            <span className="fw-bold text-info font-monospace">{formatNumber(levelData?.requiredXp)} XP</span>
+            <span className="text-slate-300 text-xs d-block mb-1">Next Milestone</span>
+            <span className="font-bold text-info font-mono">{formatNumber(levelData?.requiredXp)} XP</span>
           </div>
         </div>
       </div>
 
       <div>
-        <div className="d-flex justify-content-between text-muted small mb-2 font-monospace">
+        <div className="flex justify-content-between text-slate-300 text-xs mb-2 font-mono">
           <span>Level {levelData?.currentLevel || 1}</span>
           <span>Progress: {levelData?.progressPercent || 25}%</span>
           <span>Level {(levelData?.currentLevel || 1) + 1}</span>

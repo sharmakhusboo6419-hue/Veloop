@@ -59,8 +59,8 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-73px)] bg-[#161827] flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-[#1E293B] border border-slate-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+    <div className="min-h-[calc(100vh-73px)] bg-[var(--bg)] flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-[var(--card)] border border-slate-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
         {/* Glow */}
         <div className="absolute -right-20 -top-20 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -85,7 +85,7 @@ export const LoginPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Full Name</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5" htmlFor="username">Full Name</label>
               <div className="relative">
                 <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                 <input
@@ -93,6 +93,7 @@ export const LoginPage: React.FC = () => {
                   required
                   value={username}
                   onChange={e => setUsername(e.target.value)}
+                  id="username"
                   placeholder="Alex Vance"
                   className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 pl-10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
                 />
@@ -101,7 +102,7 @@ export const LoginPage: React.FC = () => {
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5" htmlFor="email">Email Address</label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
               <input
@@ -109,6 +110,7 @@ export const LoginPage: React.FC = () => {
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                id="email"
                 placeholder="alex@veloop.io"
                 className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 pl-10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
               />
@@ -116,7 +118,7 @@ export const LoginPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5" htmlFor="password">Password</label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
               <input
@@ -124,6 +126,7 @@ export const LoginPage: React.FC = () => {
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                id="password"
                 placeholder="••••••••"
                 className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 pl-10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
               />
@@ -132,11 +135,12 @@ export const LoginPage: React.FC = () => {
 
           {!isLogin && (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Referral Code (Optional)</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5" htmlFor="referral-code">Referral Code (Optional)</label>
               <input
                 type="text"
                 value={referralCode}
                 onChange={e => setReferralCode(e.target.value)}
+                id="referral-code"
                 placeholder="e.g. ALEX2026"
                 className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-mono"
               />

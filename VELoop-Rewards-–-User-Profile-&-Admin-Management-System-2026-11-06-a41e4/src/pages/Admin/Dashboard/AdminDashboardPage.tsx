@@ -129,7 +129,7 @@ export const AdminDashboardPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[calc(100vh-73px)] bg-[#161827] flex items-center justify-center text-slate-400">
+      <div className="min-h-[calc(100vh-73px)] bg-[var(--bg)] flex items-center justify-center text-slate-400">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
           <p className="text-xs font-mono">Loading Admin Management Console...</p>
@@ -139,16 +139,16 @@ export const AdminDashboardPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-[calc(100vh-73px)] bg-[#161827] text-slate-100 p-6 md:p-10">
+    <div className="admin-console min-h-[calc(100vh-73px)] bg-[var(--bg)] text-slate-100 p-6 md:p-10">
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#1E293B] border border-blue-500/30 text-blue-400 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-medium">
+        <div className="fixed bottom-6 right-6 z-50 bg-[var(--card)] border border-blue-500/30 text-blue-400 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-medium">
           <CheckCircle className="w-4 h-4 text-blue-400" /> {toast}
         </div>
       )}
 
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#1E293B] border border-slate-800 rounded-2xl p-6 shadow-md">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md">
           <div>
             <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
               <Shield className="w-6 h-6 text-blue-400" /> Admin Control Center
@@ -177,7 +177,7 @@ export const AdminDashboardPage: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'bg-blue-600 text-white shadow-md'
-                  : 'bg-[#1E293B] text-slate-400 hover:text-white border border-slate-800'
+                  : 'bg-[var(--card)] text-slate-400 hover:text-white border border-slate-800'
               }`}
             >
               {tab.label}
@@ -189,22 +189,22 @@ export const AdminDashboardPage: React.FC = () => {
         {activeTab === 'overview' && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-5 shadow-md">
+              <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-5 shadow-md">
                 <span className="text-xs text-slate-400 block mb-1">Total Users</span>
                 <span className="text-3xl font-extrabold text-white font-mono">{stats?.totalUsers || 0}</span>
                 <span className="text-[11px] text-emerald-400 block mt-2">{stats?.activeUsers || 0} Active members</span>
               </div>
-              <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-5 shadow-md">
+              <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-5 shadow-md">
                 <span className="text-xs text-slate-400 block mb-1">Total VEs Distributed</span>
                 <span className="text-3xl font-extrabold text-amber-400 font-mono">{formatNumber(stats?.totalVe)}</span>
                 <span className="text-[11px] text-slate-400 block mt-2">Across all user wallets</span>
               </div>
-              <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-5 shadow-md">
+              <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-5 shadow-md">
                 <span className="text-xs text-slate-400 block mb-1">Total Platform Tokens</span>
                 <span className="text-3xl font-extrabold text-emerald-400 font-mono">{formatNumber(stats?.totalTokens)}</span>
                 <span className="text-[11px] text-slate-400 block mt-2">Governance liquidity</span>
               </div>
-              <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-5 shadow-md">
+              <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-5 shadow-md">
                 <span className="text-xs text-slate-400 block mb-1">Pending Withdrawals</span>
                 <span className="text-3xl font-extrabold text-blue-400 font-mono">{stats?.pendingWithdrawals || 0}</span>
                 <span className="text-[11px] text-amber-400 block mt-2">Requires admin approval</span>
@@ -215,7 +215,7 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* TAB 2: USERS */}
         {activeTab === 'users' && (
-          <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
+          <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <h2 className="text-lg font-bold text-white">Registered Users ({filteredUsers.length})</h2>
               <div className="relative w-full sm:w-72">
@@ -285,7 +285,7 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* TAB 3: WITHDRAWALS */}
         {activeTab === 'withdrawals' && (
-          <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
+          <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
             <h2 className="text-lg font-bold text-white">Withdrawal Approval Queue</h2>
 
             <div className="overflow-x-auto">
@@ -355,7 +355,7 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* TAB 4: AUDIT LOGS */}
         {activeTab === 'audit' && (
-          <div className="bg-[#1E293B] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
+          <div className="bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md space-y-6">
             <h2 className="text-lg font-bold text-white">System Administration Audit Logs</h2>
 
             <div className="space-y-3">
@@ -387,7 +387,7 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Reward Adjustment Modal */}
       {adjustModalUser && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#1E293B] border border-slate-700 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
+          <div className="bg-[var(--card)] border border-slate-700 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
             <button
               onClick={() => setAdjustModalUser(null)}
               className="absolute right-4 top-4 text-slate-400 hover:text-white"
@@ -400,8 +400,9 @@ export const AdminDashboardPage: React.FC = () => {
 
             <form onSubmit={handleRewardAdjustment} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Asset Type</label>
+                <label htmlFor="adjust-asset" className="block text-xs font-semibold text-slate-300 mb-1.5">Asset Type</label>
                 <select
+                  id="adjust-asset"
                   value={adjustAsset}
                   onChange={e => setAdjustAsset(e.target.value)}
                   className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
@@ -415,8 +416,9 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Adjustment Amount (+ or -)</label>
+                <label htmlFor="adjust-amount" className="block text-xs font-semibold text-slate-300 mb-1.5">Adjustment Amount (+ or -)</label>
                 <input
+                  id="adjust-amount"
                   type="number"
                   required
                   value={adjustAmount}
@@ -427,8 +429,9 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Administrative Reason</label>
+                <label htmlFor="adjust-reason" className="block text-xs font-semibold text-slate-300 mb-1.5">Administrative Reason</label>
                 <input
+                  id="adjust-reason"
                   type="text"
                   required
                   value={adjustReason}

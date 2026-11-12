@@ -43,8 +43,8 @@ export const AdminLoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-73px)] bg-[#161827] flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-[#1E293B] border border-slate-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+    <div className="min-h-[calc(100vh-73px)] bg-[var(--bg)] flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-[var(--card)] border border-slate-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
         {/* Glow */}
         <div className="absolute -right-20 -top-20 w-48 h-48 bg-blue-600/10 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -64,7 +64,7 @@ export const AdminLoginPage: React.FC = () => {
 
         <form onSubmit={handleAdminLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Admin Email</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5" htmlFor="admin-email">Admin Email</label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
               <input
@@ -72,6 +72,7 @@ export const AdminLoginPage: React.FC = () => {
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                id="admin-email"
                 placeholder="admin@veloop.io"
                 className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 pl-10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
               />
@@ -79,7 +80,7 @@ export const AdminLoginPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Admin Password</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5" htmlFor="admin-password">Admin Password</label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
               <input
@@ -87,6 +88,7 @@ export const AdminLoginPage: React.FC = () => {
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                id="admin-password"
                 placeholder="••••••••"
                 className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 pl-10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
               />

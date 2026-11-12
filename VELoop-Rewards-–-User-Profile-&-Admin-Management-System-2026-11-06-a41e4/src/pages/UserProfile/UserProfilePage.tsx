@@ -122,7 +122,7 @@ export const UserProfilePage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[calc(100vh-73px)] bg-[#161827] flex items-center justify-center text-slate-400">
+      <div className="min-h-[calc(100vh-73px)] bg-[var(--bg)] flex items-center justify-center text-slate-400">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
           <p className="text-xs font-mono">Loading VELoop Profile Dashboard...</p>
@@ -135,7 +135,7 @@ export const UserProfilePage: React.FC = () => {
     <div className="dashboard-grid min-h-[calc(100vh-73px)] text-slate-100 px-4 py-6 sm:px-6 md:px-10 relative">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#1E293B] border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-medium animate-bounce">
+        <div className="fixed bottom-6 right-6 z-50 bg-[var(--card)] border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-medium animate-bounce">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" /> {toastMessage}
         </div>
       )}
@@ -187,7 +187,7 @@ export const UserProfilePage: React.FC = () => {
       {/* Withdrawal Request Modal */}
       {showWithdrawModal && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#1E293B] border border-slate-700 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
+          <div className="bg-[var(--card)] border border-slate-700 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
             <button
               onClick={() => setShowWithdrawModal(false)}
               className="absolute right-4 top-4 text-slate-400 hover:text-white"
@@ -210,8 +210,9 @@ export const UserProfilePage: React.FC = () => {
                   </div>
                 )}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Asset Type</label>
+                  <label htmlFor="withdraw-asset" className="block text-xs font-semibold text-slate-300 mb-1.5">Asset Type</label>
                   <select
+                    id="withdraw-asset"
                     value={withdrawAsset}
                     onChange={e => setWithdrawAsset(e.target.value)}
                     className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
@@ -224,8 +225,9 @@ export const UserProfilePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Amount</label>
+                  <label htmlFor="withdraw-amount" className="block text-xs font-semibold text-slate-300 mb-1.5">Amount</label>
                   <input
+                    id="withdraw-amount"
                     type="number"
                     required
                     min="1"
@@ -237,8 +239,9 @@ export const UserProfilePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Destination Payout Address / Account</label>
+                  <label htmlFor="payout-details" className="block text-xs font-semibold text-slate-300 mb-1.5">Destination Payout Address / Account</label>
                   <input
+                    id="payout-details"
                     type="text"
                     required
                     value={payoutDetails}
