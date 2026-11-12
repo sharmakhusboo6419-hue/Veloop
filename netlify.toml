@@ -2,6 +2,12 @@
   base = "VELoop-Rewards-–-User-Profile-&-Admin-Management-System-2026-11-06-a41e4"
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/api/:splat"
+  status = 200
 
 [[redirects]]
   from = "/*"
