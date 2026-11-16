@@ -19,12 +19,18 @@ export const GmailIntegration: React.FC = () => {
 
   const handleAuthClick = () => {
     if (!window.google?.accounts?.oauth2) {
-      alert('Google Identity Services script not loaded yet.');
+      setStatusMsg('Google Identity Services is still loading. Please try again.');
+      return;
+    }
+
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    if (!clientId) {
+      setStatusMsg('Gmail is not configured. Set VITE_GOOGLE_CLIENT_ID to a Google OAuth Web client ID.');
       return;
     }
 
     const client = window.google.accounts.oauth2.initTokenClient({
-      client_id: 'gen-lang-client-0334898371.apps.googleusercontent.com', // or handled by environment
+      client_id: clientId,
       scope: 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send',
       callback: (response: any) => {
         if (response.access_token) {
