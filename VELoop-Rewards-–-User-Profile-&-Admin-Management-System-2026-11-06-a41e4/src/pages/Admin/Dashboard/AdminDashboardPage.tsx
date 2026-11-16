@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../../context/AuthContext';
-import { Users, Coins, ArrowUpRight, Shield, Activity, Search, CheckCircle, XCircle, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Users, Coins, ArrowUpRight, Shield, Activity, Search, CheckCircle, XCircle, AlertTriangle, RefreshCw, BarChart3, WalletCards } from 'lucide-react';
 import { formatNumber } from '../../../utils/helpers';
 import { apiFetch, readApiJson } from '../../../utils/api';
 
@@ -127,6 +127,21 @@ export const AdminDashboardPage: React.FC = () => {
     u.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const activeRate = stats?.totalUsers ? Math.round((stats.activeUsers / stats.totalUsers) * 100) : 0;
+  const rewardAssets = [
+    { label: 'VEs', value: stats?.totalVe || 0, color: 'bg-amber-400', textColor: 'text-amber-400' },
+    { label: 'SVEs', value: stats?.totalSve || 0, color: 'bg-blue-400', textColor: 'text-blue-400' },
+    { label: 'Gems', value: stats?.totalGems || 0, color: 'bg-fuchsia-400', textColor: 'text-fuchsia-400' },
+    { label: 'Tokens', value: stats?.totalTokens || 0, color: 'bg-emerald-400', textColor: 'text-emerald-400' }
+  ];
+  const totalAssetValue = rewardAssets.reduce((sum, asset) => sum + asset.value, 0);
+  const withdrawalTotal = stats?.totalWithdrawals || 0;
+  const withdrawalStages = [
+    { label: 'Pending', value: stats?.pendingWithdrawals || 0, color: 'bg-blue-400', textColor: 'text-blue-400' },
+    { label: 'Approved', value: stats?.approvedWithdrawals || 0, color: 'bg-emerald-400', textColor: 'text-emerald-400' },
+    { label: 'Other', value: Math.max(withdrawalTotal - (stats?.pendingWithdrawals || 0) - (stats?.approvedWithdrawals || 0), 0), color: 'bg-slate-500', textColor: 'text-slate-400' }
+  ];
+
   if (loading) {
     return (
       <div className="min-h-[calc(100vh-73px)] bg-[var(--bg)] flex items-center justify-center text-slate-400">
@@ -209,6 +224,107 @@ export const AdminDashboardPage: React.FC = () => {
                 <span className="text-3xl font-extrabold text-blue-400 font-mono">{stats?.pendingWithdrawals || 0}</span>
                 <span className="text-[11px] text-amber-400 block mt-2">Requires admin approval</span>
               </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <section className="lg:col-span-2 bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md">
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                      <BarChart3 className="w-5 h-5 text-blue-400" /> Reward distribution
+                    </h2>
+                    <p className="text-xs text-slate-400 mt-1">Current balances held across member wallets</p>
+                  </div>
+                  <span className="text-xs text-slate-400 font-mono">{formatNumber(totalAssetValue)} total units</span>
+                </div>
+                <div className="space-y-5">
+                  {rewardAssets.map(asset => {
+                    const percentage = totalAssetValue ? Math.round((asset.value / totalAssetValue) * 100) : 0;
+                    return (
+                      <div key={asset.label}>
+                        <div className="flex items-center justify-between text-xs mb-2">
+                          <span className={`font-semibold ${asset.textColor}`}>{asset.label}</span>
+                          <span className="text-slate-300 font-mono">{formatNumber(asset.value)} <span className="text-slate-500">({percentage}%)</span></span>
+                        </div>
+                        <div className="h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                          <div className={`h-full ${asset.color} rounded-full transition-all`} style={{ width: `${percentage}%` }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+
+              <section className="bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md">
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                      <Users className="w-5 h-5 text-emerald-400" /> User health
+                    </h2>
+                    <p className="text-xs text-slate-400 mt-1">Account status overview</p>
+                  </div>
+                  <span className="text-2xl font-extrabold text-emerald-400 font-mono">{activeRate}%</span>
+                </div>
+                <div className="flex items-center gap-5">
+                  <div
+                    className="w-28 h-28 rounded-full grid place-items-center shrink-0"
+                    style={{ background: `conic-gradient(#10b981 ${activeRate}%, #fb7185 ${activeRate}% 100%)` }}
+                  >
+                    <div className="w-20 h-20 rounded-full bg-[var(--card)] grid place-items-center">
+                      <span className="text-xs text-slate-400">active</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3 text-xs w-full">
+                    <div className="flex justify-between"><span className="text-slate-400">Active members</span><strong className="text-emerald-400">{stats?.activeUsers || 0}</strong></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Suspended</span><strong className="text-rose-400">{stats?.suspendedUsers || 0}</strong></div>
+                    <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div className="h-full bg-emerald-400 rounded-full" style={{ width: `${activeRate}%` }} /></div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <section className="bg-[var(--card)] border border-slate-800 rounded-2xl p-6 shadow-md">
+                <div className="flex items-start justify-between mb-5">
+                  <div>
+                    <h2 className="text-lg font-bold text-white flex items-center gap-2"><WalletCards className="w-5 h-5 text-blue-400" /> Withdrawal pipeline</h2>
+                    <p className="text-xs text-slate-400 mt-1">Requests by current processing stage</p>
+                  </div>
+                  <span className="text-2xl font-extrabold text-white font-mono">{withdrawalTotal}</span>
+                </div>
+                <div className="h-3 bg-slate-800 rounded-full overflow-hidden flex mb-4">
+                  {withdrawalStages.map(stage => (
+                    <div key={stage.label} className={`${stage.color} h-full`} style={{ width: `${withdrawalTotal ? (stage.value / withdrawalTotal) * 100 : 0}%` }} />
+                  ))}
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  {withdrawalStages.map(stage => (
+                    <div key={stage.label} className="text-center">
+                      <p className={`text-xl font-bold font-mono ${stage.textColor}`}>{stage.value}</p>
+                      <p className="text-[11px] text-slate-500">{stage.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="bg-gradient-to-br from-blue-500/10 to-indigo-500/5 border border-blue-500/20 rounded-2xl p-6 shadow-md">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2"><Activity className="w-5 h-5 text-blue-400" /> At a glance</h2>
+                <p className="text-xs text-slate-400 mt-1 mb-5">The most important actions for today</p>
+                <div className="space-y-3 text-xs">
+                  <div className="flex items-center justify-between rounded-xl bg-slate-950/30 p-3">
+                    <span className="text-slate-300">Withdrawal requests needing review</span>
+                    <span className="font-bold text-blue-400">{stats?.pendingWithdrawals || 0}</span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-xl bg-slate-950/30 p-3">
+                    <span className="text-slate-300">Members currently active</span>
+                    <span className="font-bold text-emerald-400">{activeRate}%</span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-xl bg-slate-950/30 p-3">
+                    <span className="text-slate-300">Approved withdrawals</span>
+                    <span className="font-bold text-amber-400">{stats?.approvedWithdrawals || 0}</span>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         )}

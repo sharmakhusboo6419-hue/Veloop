@@ -19,7 +19,6 @@ A production-ready full-stack MERN (MongoDB, Express, React, Node.js) web applic
 - **Withdrawal Overview**: Summary of total, pending, approved, and rejected requests, plus an interactive withdrawal request modal with balance validation.
 - **Referral Snapshot**: Unique referral code generation, one-click link copying, total referrals, rewards accrued, and referred members list.
 - **Recent Activity**: Live audit feed of rewards earned, level ups, and withdrawal actions.
-- **Gmail Notification Integration**: Google OAuth integration allowing users to send level-up reward emails and read notifications from their mailbox.
 
 ### Protected Admin Management Panel (`/admin/dashboard`)
 - **Protected Access**: Enforced by JWT admin authorization middleware; access restricted to authenticated administrators.
@@ -37,7 +36,6 @@ A production-ready full-stack MERN (MongoDB, Express, React, Node.js) web applic
 - **Backend**: Node.js, Express.js (ES Modules), Mongoose.
 - **Database**: MongoDB (Atlas or local replica set) with in-memory fallback for hermetic preview safety.
 - **Authentication**: JSON Web Tokens (JWT), bcryptjs password hashing.
-- **Integrations**: Google Workspace Gmail API via OAuth 2.0.
 
 ---
 
@@ -129,7 +127,6 @@ veloop-rewards/
 │   │   ├── ReferralSnapshot/
 │   │   ├── RecentActivity/
 │   │   ├── QuickActions/
-│   │   ├── GmailIntegration/
 │   │   └── Navbar.tsx
 │   ├── context/                    # AuthContext for session management
 │   ├── pages/                      # Page components (UserProfile, Login, AdminDashboard)

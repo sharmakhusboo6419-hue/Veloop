@@ -8,7 +8,6 @@ import { WithdrawalOverview } from '../../components/WithdrawalOverview/Withdraw
 import { ReferralSnapshot } from '../../components/ReferralSnapshot/ReferralSnapshot';
 import { RecentActivity } from '../../components/RecentActivity/RecentActivity';
 import { QuickActions } from '../../components/QuickActions/QuickActions';
-import { GmailIntegration } from '../../components/GmailIntegration/GmailIntegration';
 import { X, CheckCircle2, AlertCircle } from 'lucide-react';
 import { apiFetch, readApiJson } from '../../utils/api';
 
@@ -176,9 +175,6 @@ export const UserProfilePage: React.FC = () => {
         <div id="referrals">
           <ReferralSnapshot referrals={referralsData} onCopyToast={showToast} />
         </div>
-
-        {/* Gmail Integration Section */}
-        <GmailIntegration />
 
         {/* Recent Activity */}
         <RecentActivity activities={activities} />
