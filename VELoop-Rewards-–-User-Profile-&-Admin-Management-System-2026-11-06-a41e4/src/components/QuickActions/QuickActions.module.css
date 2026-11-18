@@ -1,15 +1,15 @@
 .cardBox {
-  background: var(--card-soft);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  background: rgba(16, 38, 58, .62);
+  border: 1px solid rgba(148, 163, 184, .2);
+  border-radius: 1.1rem;
   padding: 1.5rem;
   backdrop-filter: blur(10px);
 }
 
 .actionBtn {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  background: rgba(7, 17, 31, .55);
+  border: 1px solid rgba(148, 163, 184, .18);
+  border-radius: .85rem;
   padding: 1.25rem;
   text-align: left;
   color: var(--fg);
@@ -38,7 +38,7 @@
 
 .actionBtn:hover {
   border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(59, 130, 246, 0.08);
+  background: rgba(126, 166, 255, 0.08);
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.4);
 }

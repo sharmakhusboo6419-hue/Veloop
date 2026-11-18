@@ -8,8 +8,9 @@ import { WithdrawalOverview } from '../../components/WithdrawalOverview/Withdraw
 import { ReferralSnapshot } from '../../components/ReferralSnapshot/ReferralSnapshot';
 import { RecentActivity } from '../../components/RecentActivity/RecentActivity';
 import { QuickActions } from '../../components/QuickActions/QuickActions';
-import { X, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 import { apiFetch, readApiJson } from '../../utils/api';
+import styles from './UserProfilePage.module.css';
 
 export const UserProfilePage: React.FC = () => {
   const { token } = useAuth();
@@ -121,97 +122,87 @@ export const UserProfilePage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[calc(100vh-73px)] bg-[var(--bg)] flex items-center justify-center text-slate-400">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-          <p className="text-xs font-mono">Loading VELoop Profile Dashboard...</p>
+      <div className={styles.loading}>
+        <div className={styles.loadingInner}>
+          <div className={styles.spinner} />
+          <p className={styles.loadingText}>Loading VELoop profile dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="dashboard-grid min-h-[calc(100vh-73px)] text-slate-100 px-4 py-6 sm:px-6 md:px-10 relative">
+    <main className={styles.page}>
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[var(--card)] border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-medium animate-bounce">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" /> {toastMessage}
+        <div className={styles.toast} role="status">
+          <CheckCircle2 size={16} /> {toastMessage}
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto space-y-8">
-        <header className="flex flex-col gap-3 border-b border-slate-800/80 pb-6 sm:flex-row sm:items-end sm:justify-between">
+      <div className={styles.content}>
+        <header className={styles.intro}>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-400">Member command center</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Your rewards, in motion.</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">Track your balance, progress, and the next useful action from one focused view.</p>
+            <p className={styles.eyebrow}>Member command center</p>
+            <h1 className={styles.heading}>Your rewards, in motion.</h1>
+            <p className={styles.lede}>Track your balance, progress, and the next useful action from one focused view.</p>
           </div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">Live account overview</div>
+          <div className={styles.liveMark}>Live account overview</div>
         </header>
 
-        {/* Profile Hero Section */}
-        <ProfileHero user={profileData} levelData={levelData} onCopyToast={showToast} />
-
-        {/* Reward Assets Section */}
-        <div id="rewards">
-          <RewardAssets wallet={walletData || { veBalance: 0, sveBalance: 0, gemsBalance: 0, tokensBalance: 0, xpBalance: 0 }} onActionClick={handleQuickAction} />
+        <div className={styles.stack}>
+          <ProfileHero user={profileData} levelData={levelData} onCopyToast={showToast} />
+          <div id="rewards">
+            <RewardAssets wallet={walletData || { veBalance: 0, sveBalance: 0, gemsBalance: 0, tokensBalance: 0, xpBalance: 0 }} onActionClick={handleQuickAction} />
+          </div>
+          <QuickActions onActionClick={handleQuickAction} />
+          <div className={styles.split}>
+            <LevelProgress levelData={levelData} />
+            <AchievementCard achievements={achievements} />
+          </div>
+          <div id="withdrawals">
+            <WithdrawalOverview summary={withdrawalSummary} onOpenWithdrawal={() => setShowWithdrawModal(true)} />
+          </div>
+          <div id="referrals">
+            <ReferralSnapshot referrals={referralsData} onCopyToast={showToast} />
+          </div>
+          <RecentActivity activities={activities} />
         </div>
-
-        {/* Quick Actions */}
-        <QuickActions onActionClick={handleQuickAction} />
-
-        {/* Level Progression & Achievements Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <LevelProgress levelData={levelData} />
-          <AchievementCard achievements={achievements} />
-        </div>
-
-        {/* Withdrawal Overview */}
-        <div id="withdrawals">
-          <WithdrawalOverview summary={withdrawalSummary} onOpenWithdrawal={() => setShowWithdrawModal(true)} />
-        </div>
-
-        {/* Referral Snapshot */}
-        <div id="referrals">
-          <ReferralSnapshot referrals={referralsData} onCopyToast={showToast} />
-        </div>
-
-        {/* Recent Activity */}
-        <RecentActivity activities={activities} />
       </div>
 
       {/* Withdrawal Request Modal */}
       {showWithdrawModal && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[var(--card)] border border-slate-700 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
+        <div className={styles.modalBackdrop} role="presentation">
+          <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="withdraw-title">
             <button
               onClick={() => setShowWithdrawModal(false)}
-              className="absolute right-4 top-4 text-slate-400 hover:text-white"
+              className={styles.modalClose}
+              aria-label="Close withdrawal dialog"
             >
-              <X className="w-5 h-5" />
+              <X size={18} />
             </button>
 
-            <h3 className="text-lg font-bold text-white mb-1">Request Asset Withdrawal</h3>
-            <p className="text-xs text-slate-400 mb-6">Convert your platform earnings to external wallet or account.</p>
+            <h2 id="withdraw-title" className={styles.modalTitle}>Request asset withdrawal</h2>
+            <p className={styles.modalCopy}>Convert your platform earnings to an external wallet or account.</p>
 
             {withdrawSuccess ? (
-              <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-center text-xs font-semibold">
+              <div className={styles.success}>
                 Withdrawal request submitted successfully!
               </div>
             ) : (
-              <form onSubmit={handleWithdrawSubmit} className="space-y-4">
+              <form onSubmit={handleWithdrawSubmit} className={styles.form}>
                 {withdrawError && (
-                  <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs rounded-xl">
+                  <div className={styles.error} role="alert">
                     {withdrawError}
                   </div>
                 )}
-                <div>
-                  <label htmlFor="withdraw-asset" className="block text-xs font-semibold text-slate-300 mb-1.5">Asset Type</label>
+                <div className={styles.field}>
+                  <label htmlFor="withdraw-asset" className={styles.label}>Asset type</label>
                   <select
                     id="withdraw-asset"
                     value={withdrawAsset}
                     onChange={e => setWithdrawAsset(e.target.value)}
-                    className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
+                    className={styles.input}
                   >
                     <option value="VE">VE (VELoop Earnings)</option>
                     <option value="SVE">SVE (Silver Vault Earnings)</option>
@@ -220,8 +211,8 @@ export const UserProfilePage: React.FC = () => {
                   </select>
                 </div>
 
-                <div>
-                  <label htmlFor="withdraw-amount" className="block text-xs font-semibold text-slate-300 mb-1.5">Amount</label>
+                <div className={styles.field}>
+                  <label htmlFor="withdraw-amount" className={styles.label}>Amount</label>
                   <input
                     id="withdraw-amount"
                     type="number"
@@ -230,12 +221,12 @@ export const UserProfilePage: React.FC = () => {
                     value={withdrawAmount}
                     onChange={e => setWithdrawAmount(e.target.value)}
                     placeholder="e.g. 250"
-                    className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 font-mono"
+                    className={`${styles.input} ${styles.mono}`}
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="payout-details" className="block text-xs font-semibold text-slate-300 mb-1.5">Destination Payout Address / Account</label>
+                <div className={styles.field}>
+                  <label htmlFor="payout-details" className={styles.label}>Destination payout address / account</label>
                   <input
                     id="payout-details"
                     type="text"
@@ -243,13 +234,13 @@ export const UserProfilePage: React.FC = () => {
                     value={payoutDetails}
                     onChange={e => setPayoutDetails(e.target.value)}
                     placeholder="e.g. 0x71C...392A or bank account"
-                    className="w-full bg-[#0F172A] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 font-mono"
+                    className={`${styles.input} ${styles.mono}`}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs transition-colors shadow-lg mt-2"
+                  className={styles.submit}
                 >
                   Submit Withdrawal Request
                 </button>
@@ -258,6 +249,6 @@ export const UserProfilePage: React.FC = () => {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 };
