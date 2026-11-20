@@ -4,9 +4,9 @@
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 8% 0%, rgba(245, 185, 66, 0.1), transparent 25rem),
-    radial-gradient(circle at 94% 18%, rgba(126, 166, 255, 0.11), transparent 28rem),
-    var(--bg);
+    radial-gradient(circle at 2% 8%, rgba(20, 221, 250, 0.13), transparent 25rem),
+    radial-gradient(circle at 96% 18%, rgba(224, 65, 224, 0.14), transparent 30rem),
+    radial-gradient(circle at 52% 90%, rgba(112, 72, 255, 0.12), transparent 35rem), #090b25;
 }
 
 .page::before {
@@ -35,11 +35,12 @@
   gap: 1.5rem;
   padding-bottom: 1.5rem;
   margin-bottom: 1.75rem;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  padding: .35rem 0 1.15rem;
+  border-bottom: 1px solid rgba(145, 156, 221, 0.2);
 }
 
 .eyebrow {
-  color: var(--accent-amber);
+  color: #63e7fb;
   font: 700 .66rem/1 var(--font-mono);
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -47,7 +48,7 @@
 
 .heading {
   margin: .7rem 0 .4rem;
-  color: var(--fg);
+  color: #fff;
   font-size: clamp(1.7rem, 3.3vw, 2.65rem);
   letter-spacing: -.055em;
   line-height: 1.05;
@@ -64,7 +65,7 @@
   display: inline-flex;
   align-items: center;
   gap: .55rem;
-  color: var(--muted-soft);
+  color: #b7c2e4;
   font: 600 .65rem/1 var(--font-mono);
   letter-spacing: .13em;
   text-transform: uppercase;
@@ -76,8 +77,8 @@
   width: .45rem;
   height: .45rem;
   border-radius: 50%;
-  background: var(--accent-emerald);
-  box-shadow: 0 0 0 .25rem rgba(16, 185, 129, .12), 0 0 1rem rgba(16, 185, 129, .6);
+  background: #58efad;
+  box-shadow: 0 0 0 .25rem rgba(88, 239, 173, .12), 0 0 1rem rgba(88, 239, 173, .6);
 }
 
 .stack {

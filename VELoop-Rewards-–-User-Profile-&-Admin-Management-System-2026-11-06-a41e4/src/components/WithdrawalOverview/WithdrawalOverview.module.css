@@ -1,14 +1,14 @@
 .cardBox {
-  background: var(--card-soft);
-  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(11,35,67,.9), rgba(13,13,47,.9));
+  border: 1px solid rgba(85,218,248,.22);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   backdrop-filter: blur(10px);
 }
 
 .subBox {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: rgba(3,10,32,.5);
+  border: 1px solid rgba(255,255,255,.09);
   border-radius: var(--radius-md);
   padding: 1rem;
 }
