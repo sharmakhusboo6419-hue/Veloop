@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 
 // In-memory fallback store for 100% reliable execution without external DB latency or timeouts
 class FallbackStore {
+  private initialization: Promise<void> | null = null;
   users: any[] = [];
   wallets: any[] = [];
   transactions: any[] = [];
@@ -14,7 +15,14 @@ class FallbackStore {
   adminUsers: any[] = [];
   auditLogs: any[] = [];
 
-  async init() {
+  init() {
+    if (!this.initialization) {
+      this.initialization = this.initialize();
+    }
+    return this.initialization;
+  }
+
+  private async initialize() {
     if (this.users.length > 0) return;
 
     const adminPass = await bcrypt.hash('Admin@123', 10);

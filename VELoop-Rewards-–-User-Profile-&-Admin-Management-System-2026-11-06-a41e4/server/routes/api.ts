@@ -23,6 +23,21 @@ const JWT_SECRET = process.env.JWT_SECRET || 'veloop_secure_jwt_secret_key_2026'
 
 const isDbReady = () => mongoose.connection.readyState === 1;
 
+// Serverless functions may receive a request while the fallback store is still
+// hashing its seeded demo credentials. Awaiting initialization here prevents a
+// cold-start login from being rejected as an invalid account.
+router.use(async (_req, _res, next) => {
+  if (!isDbReady()) {
+    try {
+      await fallbackStore.init();
+    } catch (error) {
+      next(error);
+      return;
+    }
+  }
+  next();
+});
+
 // ==================== AUTH ROUTES ====================
 
 router.post('/auth/register', async (req, res) => {
